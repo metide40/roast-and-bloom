@@ -232,6 +232,24 @@ function IconLink({ to, count, children }: { to: string; count?: number; childre
 
 /* ---------- Footer ---------- */
 export function Footer() {
+  const { newsletterEmail, subscribeNewsletter } = useApp();
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = email.trim();
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+
+    if (!isValid) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    subscribeNewsletter(trimmed);
+    toast.success("You’re subscribed to the Roast & Bloom newsletter!");
+    setEmail("");
+  };
+
   return (
     <footer className="mt-24 bg-espresso text-cream/80">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 lg:grid-cols-4">
