@@ -260,17 +260,29 @@ export function Footer() {
         <div>
           <h4 className="font-display text-lg text-cream">Stay in the loop</h4>
           <p className="mt-4 text-sm text-cream/60">Fresh roasts, seasonal pours and member-only perks.</p>
-          <form onSubmit={(e) => e.preventDefault()} className="mt-5 flex overflow-hidden rounded-full bg-cream/10 p-1">
-            <span className="flex items-center pl-3 text-cream/50"><EnvelopeSimple size={18} /></span>
-            <input placeholder="Email address" className="w-full bg-transparent px-3 text-sm text-cream placeholder:text-cream/40 focus:outline-none" />
-            <button className="rounded-full bg-gold px-4 text-sm font-semibold text-espresso">Join</button>
-          </form>
+          {newsletterEmail ? (
+            <div className="mt-5 flex items-center gap-3 rounded-full border border-cream/10 bg-cream/5 px-4 py-3 text-sm text-cream">
+              <CheckCircle size={18} weight="fill" className="text-gold" />
+              <span>Subscribed as {newsletterEmail}</span>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="mt-5 flex overflow-hidden rounded-full bg-cream/10 p-1">
+              <span className="flex items-center pl-3 text-cream/50"><EnvelopeSimple size={18} /></span>
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email address"
+                className="w-full bg-transparent px-3 text-sm text-cream placeholder:text-cream/40 focus:outline-none"
+              />
+              <button type="submit" className="rounded-full bg-gold px-4 text-sm font-semibold text-espresso">Join</button>
+            </form>
+          )}
         </div>
       </div>
       <div className="border-t border-cream/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-6 text-xs text-cream/50 sm:flex-row sm:px-8">
           <p>© {new Date().getFullYear()} Roast &amp; Bloom Coffee. All rights reserved.</p>
-          <p>Crafted with care · Portland, Oregon</p>
+          <p>Crafted with care · Addis Ababa, Ethiopia</p>
         </div>
       </div>
     </footer>
