@@ -1,12 +1,32 @@
 import { useState, type ReactNode } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 import {
-  Bag, Heart, House, List, MapPin, Phone, User,
+  Bag, Heart, House, List, MapPin, Moon, Phone, Sun, User,
   X, Coffee, InstagramLogo, FacebookLogo, TwitterLogo, EnvelopeSimple,
+  CheckCircle,
 } from "@phosphor-icons/react";
 import { useApp } from "@/store";
+import { useTheme } from "@/hooks/use-theme";
 import { cn } from "@/lib/utils";
+
+/* ---------- Theme toggle ---------- */
+function ThemeToggle({ className }: { className?: string }) {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <button
+      onClick={toggleTheme}
+      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      className={cn(
+        "inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary",
+        className,
+      )}
+    >
+      {theme === "dark" ? <Sun size={20} weight="duotone" /> : <Moon size={20} weight="duotone" />}
+    </button>
+  );
+}
 
 /* ---------- Motion helper ---------- */
 export function Reveal({
@@ -36,7 +56,7 @@ export function SectionHeading({
           {eyebrow}
         </span>
       )}
-      <h2 className="mt-3 font-display text-3xl leading-tight text-espresso sm:text-4xl md:text-[2.75rem]">
+      <h2 className="mt-3 font-display text-3xl leading-tight text-foreground sm:text-4xl md:text-[2.75rem]">
         {title}
       </h2>
       {sub && <p className="mt-4 text-base leading-relaxed text-muted-foreground">{sub}</p>}
@@ -62,7 +82,7 @@ export function GoldButton({
 
 export function GhostLink({ to, children }: { to: string; children: ReactNode }) {
   return (
-    <Link to={to} className="group inline-flex items-center gap-2 text-sm font-semibold text-espresso">
+    <Link to={to} className="group inline-flex items-center gap-2 text-sm font-semibold text-foreground">
       {children}
       <span className="h-px w-6 bg-espresso/40 transition-all duration-300 group-hover:w-10 group-hover:bg-caramel" />
     </Link>
@@ -96,7 +116,7 @@ export function Navbar() {
     <header
       className={cn(
         "sticky top-0 z-50 transition-all duration-500",
-        scrolled ? "bg-cream/85 shadow-[0_1px_0_0_var(--border)] backdrop-blur-xl" : "bg-transparent",
+        scrolled ? "bg-background/90 shadow-[0_1px_0_0_var(--border)] backdrop-blur-xl" : "bg-transparent",
       )}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
@@ -104,7 +124,7 @@ export function Navbar() {
           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-espresso text-gold">
             <Coffee size={22} weight="fill" />
           </span>
-          <span className="font-display text-xl font-semibold tracking-tight text-espresso">
+          <span className="font-display text-xl font-semibold tracking-tight text-foreground">
             Roast <span className="text-caramel">&amp;</span> Bloom
           </span>
         </Link>
@@ -118,7 +138,7 @@ export function Navbar() {
               className={({ isActive }) =>
                 cn(
                   "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  isActive ? "text-espresso" : "text-muted-foreground hover:text-espresso",
+                  isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                 )
               }
             >
@@ -135,11 +155,12 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-1">
+          <ThemeToggle />
           <IconLink to="/favorites" count={favorites.length}><Heart size={20} weight="duotone" /></IconLink>
           <IconLink to="/cart" count={cartCount}><Bag size={20} weight="duotone" /></IconLink>
           <Link
             to={user ? "/profile" : "/login"}
-            className="ml-1 hidden items-center gap-2 rounded-full border border-espresso/15 px-4 py-2 text-sm font-semibold text-espresso transition-colors hover:border-caramel hover:text-caramel sm:inline-flex"
+            className="ml-1 hidden items-center gap-2 rounded-full border border-espresso/15 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-caramel hover:text-caramel sm:inline-flex"
           >
             <User size={18} weight="duotone" />
             {user ? user.name.split(" ")[0] : "Sign in"}
@@ -161,7 +182,7 @@ export function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden border-t border-border bg-cream lg:hidden"
+            className="overflow-hidden border-t border-border bg-background lg:hidden"
           >
             <div className="flex flex-col gap-1 px-5 py-4">
               {NAV.map((n) => (
@@ -184,6 +205,7 @@ export function Navbar() {
               >
                 <User size={18} /> {user ? "My Profile" : "Sign in"}
               </Link>
+              <ThemeToggle className="mt-1 w-full justify-start gap-3 rounded-xl px-4 text-sm font-medium text-espresso" />
             </div>
           </motion.nav>
         )}
@@ -196,7 +218,7 @@ function IconLink({ to, count, children }: { to: string; count?: number; childre
   return (
     <Link
       to={to}
-      className="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-espresso transition-colors hover:bg-secondary"
+      className="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary"
     >
       {children}
       {!!count && (
