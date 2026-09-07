@@ -36,7 +36,7 @@ export function Menu() {
                 onClick={() => setCat(c)}
                 className={cn(
                   "rounded-full px-4 py-2 text-sm font-semibold transition-all",
-                  cat === c ? "bg-espresso text-cream shadow-lg" : "bg-secondary text-espresso hover:bg-secondary/70",
+                  cat === c ? "bg-espresso text-cream shadow-lg" : "bg-secondary text-foreground hover:bg-secondary/70",
                 )}
               >
                 {c}
@@ -83,7 +83,7 @@ export function ProductDetails() {
   if (!p) {
     return (
       <div className="mx-auto max-w-3xl px-5 py-32 text-center">
-        <h1 className="font-display text-3xl text-espresso">Product not found</h1>
+        <h1 className="font-display text-3xl text-foreground">Product not found</h1>
         <div className="mt-6"><GoldButton as="link" to="/menu">Back to menu</GoldButton></div>
       </div>
     );
@@ -110,24 +110,24 @@ export function ProductDetails() {
               <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold uppercase tracking-wider text-caramel">{p.category}</span>
               <span className="flex items-center gap-1 text-sm text-muted-foreground"><Star size={15} weight="fill" className="text-gold" /> {p.rating} · {p.reviews} reviews</span>
             </div>
-            <h1 className="mt-3 font-display text-4xl text-espresso sm:text-5xl">{p.name}</h1>
+            <h1 className="mt-3 font-display text-4xl text-foreground sm:text-5xl">{p.name}</h1>
             <p className="mt-2 text-sm text-muted-foreground">{p.origin} · {p.roast} roast</p>
-            <p className="mt-5 leading-relaxed text-espresso/80">{p.description}</p>
+            <p className="mt-5 leading-relaxed text-foreground/80">{p.description}</p>
 
             <div className="mt-6 flex flex-wrap gap-2">
               {p.notes.map((n) => (
-                <span key={n} className="inline-flex items-center gap-1.5 rounded-full border hairline px-3 py-1 text-xs font-medium text-espresso">
+                <span key={n} className="inline-flex items-center gap-1.5 rounded-full border hairline px-3 py-1 text-xs font-medium text-foreground">
                   <Coffee size={13} className="text-caramel" /> {n}
                 </span>
               ))}
             </div>
 
             <div className="mt-8">
-              <p className="text-sm font-semibold text-espresso">Size</p>
+              <p className="text-sm font-semibold text-foreground">Size</p>
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {SIZES.map((s) => (
                   <button key={s.id} onClick={() => setSize(s.id)} className={cn("rounded-xl border px-3 py-3 text-center transition-all", size === s.id ? "border-caramel bg-caramel/10" : "border-border hover:border-caramel/50")}>
-                    <span className="block text-sm font-semibold text-espresso">{s.label}</span>
+                    <span className="block text-sm font-semibold text-foreground">{s.label}</span>
                     <span className="text-xs text-muted-foreground">{formatMoney(linePrice(p, s.id))}</span>
                   </button>
                 ))}
@@ -135,21 +135,21 @@ export function ProductDetails() {
             </div>
 
             <div className="mt-6">
-              <p className="text-sm font-semibold text-espresso">Milk</p>
+              <p className="text-sm font-semibold text-foreground">Milk</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {MILKS.map((m) => (
-                  <button key={m} onClick={() => setMilk(m)} className={cn("rounded-full border px-4 py-2 text-sm font-medium transition-all", milk === m ? "border-espresso bg-espresso text-cream" : "border-border text-espresso hover:border-caramel")}>{m}</button>
+                  <button key={m} onClick={() => setMilk(m)} className={cn("rounded-full border px-4 py-2 text-sm font-medium transition-all", milk === m ? "border-espresso bg-espresso text-cream" : "border-border text-foreground hover:border-caramel")}>{m}</button>
                 ))}
               </div>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <div className="flex items-center gap-3 rounded-full border border-border p-1.5">
-                <button onClick={() => setQty((v) => Math.max(1, v - 1))} className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-espresso"><Minus size={16} /></button>
+                <button onClick={() => setQty((v) => Math.max(1, v - 1))} className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-foreground"><Minus size={16} /></button>
                 <span className="w-6 text-center font-semibold">{qty}</span>
-                <button onClick={() => setQty((v) => v + 1)} className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-espresso"><Plus size={16} /></button>
+                <button onClick={() => setQty((v) => v + 1)} className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-foreground"><Plus size={16} /></button>
               </div>
-              <span className="font-display text-3xl text-espresso">{formatMoney(price * qty)}</span>
+              <span className="font-display text-3xl text-foreground">{formatMoney(price * qty)}</span>
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
@@ -195,7 +195,7 @@ function CartLine({ line }: { line: ReturnType<typeof useApp>["cart"][number] })
       <div className="flex flex-1 flex-col">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <h3 className="font-display text-lg text-espresso">{p.name}</h3>
+            <h3 className="font-display text-lg text-foreground">{p.name}</h3>
             <p className="text-xs text-muted-foreground">{line.size} · {line.milk}</p>
           </div>
           <button onClick={() => removeItem(line.lineId)} className="text-muted-foreground transition-colors hover:text-destructive"><Trash size={18} /></button>
@@ -206,7 +206,7 @@ function CartLine({ line }: { line: ReturnType<typeof useApp>["cart"][number] })
             <span className="w-5 text-center text-sm font-semibold">{line.qty}</span>
             <button onClick={() => updateQty(line.lineId, 1)} className="flex h-7 w-7 items-center justify-center rounded-full hover:bg-secondary"><Plus size={14} /></button>
           </div>
-          <span className="font-semibold text-espresso">{formatMoney(line.price * line.qty)}</span>
+          <span className="font-semibold text-foreground">{formatMoney(line.price * line.qty)}</span>
         </div>
       </div>
     </div>
@@ -221,7 +221,7 @@ export function Cart() {
         <PageHero crumb="Cart" title="Your cart" />
         <div className="mx-auto max-w-xl px-5 py-20 text-center">
           <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-secondary text-caramel"><Bag size={36} weight="duotone" /></span>
-          <h2 className="mt-6 font-display text-2xl text-espresso">Your cart is empty</h2>
+          <h2 className="mt-6 font-display text-2xl text-foreground">Your cart is empty</h2>
           <p className="mt-2 text-muted-foreground">Add a few beautiful things to get started.</p>
           <div className="mt-8"><GoldButton as="link" to="/menu">Browse the menu <ArrowRight size={16} /></GoldButton></div>
         </div>
@@ -251,20 +251,20 @@ function Summary({ subtotal, delivery }: { subtotal: number; delivery: number })
   const total = Math.round((subtotal + delivery + tax) * 100) / 100;
   return (
     <div className="rounded-2xl border border-border bg-card p-6">
-      <h3 className="font-display text-xl text-espresso">Order summary</h3>
+      <h3 className="font-display text-xl text-foreground">Order summary</h3>
       <dl className="mt-5 space-y-3 text-sm">
         <Row label="Subtotal" value={formatMoney(subtotal)} />
         <Row label="Delivery" value={delivery === 0 ? "Free" : formatMoney(delivery)} />
         <Row label="Tax (8%)" value={formatMoney(tax)} />
         <div className="my-3 h-px bg-border" />
-        <div className="flex items-center justify-between"><dt className="font-display text-lg text-espresso">Total</dt><dd className="font-display text-2xl text-espresso">{formatMoney(total)}</dd></div>
+        <div className="flex items-center justify-between"><dt className="font-display text-lg text-foreground">Total</dt><dd className="font-display text-2xl text-foreground">{formatMoney(total)}</dd></div>
       </dl>
-      {delivery > 0 && <p className="mt-4 rounded-lg bg-secondary/60 px-3 py-2 text-xs text-espresso">Add {formatMoney(25 - subtotal)} more for free delivery.</p>}
+      {delivery > 0 && <p className="mt-4 rounded-lg bg-secondary/60 px-3 py-2 text-xs text-foreground">Add {formatMoney(25 - subtotal)} more for free delivery.</p>}
     </div>
   );
 }
 function Row({ label, value }: { label: string; value: string }) {
-  return <div className="flex items-center justify-between"><dt className="text-muted-foreground">{label}</dt><dd className="font-medium text-espresso">{value}</dd></div>;
+  return <div className="flex items-center justify-between"><dt className="text-muted-foreground">{label}</dt><dd className="font-medium text-foreground">{value}</dd></div>;
 }
 
 /* ============ CHECKOUT ============ */
@@ -281,7 +281,7 @@ export function Checkout() {
   if (cart.length === 0) {
     return (
       <div className="mx-auto max-w-xl px-5 py-32 text-center">
-        <h1 className="font-display text-3xl text-espresso">Nothing to check out</h1>
+        <h1 className="font-display text-3xl text-foreground">Nothing to check out</h1>
         <div className="mt-6"><GoldButton as="link" to="/menu">Browse menu</GoldButton></div>
       </div>
     );
@@ -302,7 +302,7 @@ export function Checkout() {
       <section className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[1.6fr_1fr]">
         <form onSubmit={submit} className="space-y-8">
           <div>
-            <p className="mb-3 text-sm font-semibold text-espresso">How would you like it?</p>
+            <p className="mb-3 text-sm font-semibold text-foreground">How would you like it?</p>
             <div className="grid grid-cols-2 gap-3">
               {(["Pickup", "Delivery"] as const).map((f) => (
                 <button type="button" key={f} onClick={() => setFulfillment(f)} className={cn("flex items-center justify-center gap-2 rounded-xl border px-4 py-4 text-sm font-semibold transition-all", fulfillment === f ? "border-caramel bg-caramel/10 text-espresso" : "border-border text-muted-foreground")}>
@@ -313,16 +313,16 @@ export function Checkout() {
           </div>
 
           <Fieldset title="Contact">
-            <Field label="Full name" value={form.name} onChange={(v) => set("name", v)} placeholder="Jordan Rivera" />
+            <Field label="Full name" value={form.name} onChange={(v) => set("name", v)} placeholder="Daniel Rivera" />
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Email" value={form.email} onChange={(v) => set("email", v)} placeholder="you@email.com" type="email" />
-              <Field label="Phone" value={form.phone} onChange={(v) => set("phone", v)} placeholder="(503) 555-0100" />
+              <Field label="Phone" value={form.phone} onChange={(v) => set("phone", v)} placeholder="+251 911 630 142" />
             </div>
-            {fulfillment === "Delivery" && <Field label="Delivery address" value={form.address} onChange={(v) => set("address", v)} placeholder="123 Rose St, Portland, OR" />}
+            {fulfillment === "Delivery" && <Field label="Delivery address" value={form.address} onChange={(v) => set("address", v)} placeholder="123 Rose St, Addis Ababa" />}
           </Fieldset>
 
           <Fieldset title="Payment">
-            <div className="flex items-center gap-2 rounded-xl bg-secondary/60 px-4 py-3 text-sm text-espresso">
+            <div className="flex items-center gap-2 rounded-xl bg-secondary/60 px-4 py-3 text-sm text-foreground">
               <ShieldCheck size={18} className="text-caramel" /> Demo checkout — no real card is charged.
             </div>
             <Field label="Card number" value={form.card} onChange={(v) => set("card", v)} placeholder="4242 4242 4242 4242" icon={<CreditCard size={18} />} />
@@ -339,15 +339,17 @@ export function Checkout() {
 
         <div className="lg:sticky lg:top-28 lg:self-start">
           <div className="rounded-2xl border border-border bg-card p-6">
-            <h3 className="font-display text-lg text-espresso">{cart.length} item{cart.length > 1 ? "s" : ""}</h3>
+            <h3 className="font-display text-lg text-foreground">{cart.length} item{cart.length > 1 ? "s" : ""}</h3>
             <ul className="mt-4 space-y-3">
-              {cart.map((l) => { const p = productById(l.productId); return (
-                <li key={l.lineId} className="flex items-center gap-3 text-sm">
-                  <img src={p?.image} alt="" className="h-10 w-10 rounded-lg object-cover" />
-                  <span className="flex-1 text-espresso">{p?.name} <span className="text-muted-foreground">×{l.qty}</span></span>
-                  <span className="font-medium">{formatMoney(l.price * l.qty)}</span>
-                </li>
-              ); })}
+              {cart.map((l) => {
+                const p = productById(l.productId); return (
+                  <li key={l.lineId} className="flex items-center gap-3 text-sm">
+                    <img src={p?.image} alt="" className="h-10 w-10 rounded-lg object-cover" />
+                    <span className="flex-1 text-foreground">{p?.name} <span className="text-muted-foreground">×{l.qty}</span></span>
+                    <span className="font-medium">{formatMoney(l.price * l.qty)}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="mt-4"><Summary subtotal={cartSubtotal} delivery={delivery} /></div>
@@ -360,7 +362,7 @@ export function Checkout() {
 function Fieldset({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-6">
-      <h3 className="mb-5 font-display text-lg text-espresso">{title}</h3>
+      <h3 className="mb-5 font-display text-lg text-foreground">{title}</h3>
       <div className="space-y-4">{children}</div>
     </div>
   );
@@ -368,10 +370,10 @@ function Fieldset({ title, children }: { title: string; children: React.ReactNod
 function Field({ label, value, onChange, placeholder, type = "text", icon }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string; type?: string; icon?: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-medium text-espresso">{label}</span>
+      <span className="mb-1.5 block text-sm font-medium text-foreground">{label}</span>
       <span className="relative block">
         {icon && <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">{icon}</span>}
-        <input type={type} value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} className={cn("w-full rounded-xl border border-border bg-cream/40 py-3 text-sm text-espresso placeholder:text-muted-foreground/60 focus:border-caramel focus:outline-none focus:ring-2 focus:ring-caramel/20", icon ? "pl-11 pr-4" : "px-4")} />
+        <input type={type} value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} className={cn("w-full rounded-xl border border-border bg-background py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-caramel focus:outline-none focus:ring-2 focus:ring-caramel/20", icon ? "pl-11 pr-4" : "px-4")} />
       </span>
     </label>
   );
@@ -384,7 +386,7 @@ export function OrderConfirmation() {
   if (!order) {
     return (
       <div className="mx-auto max-w-xl px-5 py-32 text-center">
-        <h1 className="font-display text-3xl text-espresso">No recent order</h1>
+        <h1 className="font-display text-3xl text-foreground">No recent order</h1>
         <div className="mt-6"><GoldButton as="link" to="/menu">Order now</GoldButton></div>
       </div>
     );
@@ -394,27 +396,27 @@ export function OrderConfirmation() {
       <motion.div initial={{ scale: 0, rotate: -20 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 200, damping: 14 }} className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-gold to-caramel text-espresso">
         <CheckCircle size={54} weight="fill" />
       </motion.div>
-      <h1 className="mt-8 font-display text-4xl text-espresso">Order confirmed!</h1>
+      <h1 className="mt-8 font-display text-4xl text-foreground">Order confirmed!</h1>
       <p className="mt-3 text-muted-foreground">Thank you — your coffee is being crafted with care.</p>
 
       <div className="mt-10 rounded-2xl border border-border bg-card p-6 text-left">
         <div className="flex items-center justify-between border-b border-border pb-4">
-          <div><p className="text-xs uppercase tracking-wider text-muted-foreground">Order number</p><p className="font-display text-xl text-espresso">{order.id}</p></div>
-          <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-espresso">{order.fulfillment}</span>
+          <div><p className="text-xs uppercase tracking-wider text-muted-foreground">Order number</p><p className="font-display text-xl text-foreground">{order.id}</p></div>
+          <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-foreground">{order.fulfillment}</span>
         </div>
         <ul className="space-y-3 py-4">
           {order.items.map((it, i) => (
             <li key={i} className="flex items-center justify-between text-sm">
-              <span className="flex items-center gap-2 text-espresso"><Check size={16} className="text-caramel" /> {it.name} <span className="text-muted-foreground">· {it.size} · {it.milk} ×{it.qty}</span></span>
+              <span className="flex items-center gap-2 text-foreground"><Check size={16} className="text-caramel" /> {it.name} <span className="text-muted-foreground">· {it.size} · {it.milk} ×{it.qty}</span></span>
               <span className="font-medium">{formatMoney(it.price * it.qty)}</span>
             </li>
           ))}
         </ul>
         <div className="flex items-center justify-between border-t border-border pt-4">
-          <span className="font-display text-lg text-espresso">Total</span>
-          <span className="font-display text-2xl text-espresso">{formatMoney(order.total)}</span>
+          <span className="font-display text-lg text-foreground">Total</span>
+          <span className="font-display text-2xl text-foreground">{formatMoney(order.total)}</span>
         </div>
-        <div className="mt-4 flex items-center gap-2 rounded-xl bg-secondary/60 px-4 py-3 text-sm text-espresso">
+        <div className="mt-4 flex items-center gap-2 rounded-xl bg-secondary/60 px-4 py-3 text-sm text-foreground">
           <CrownBadge /> You earned <strong>{order.points} reward points</strong> on this order.
         </div>
       </div>
