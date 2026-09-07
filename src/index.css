@@ -5,7 +5,7 @@
 
 :root {
   --background: #f7f1e8;
-  --foreground: #2a1a12;
+  --foreground: #3a2418;
   --card: #fffdf9;
   --card-foreground: #2a1a12;
   --popover: #fffdf9;
@@ -64,16 +64,46 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+.dark {
+  --background: #171009;
+  --foreground: #f5ead9;
+  --card: #241a12;
+  --card-foreground: #f5ead9;
+  --popover: #241a12;
+  --popover-foreground: #f5ead9;
+  --primary: #f5ead9;
+  --primary-foreground: #171009;
+  --secondary: #3a2a1c;
+  --secondary-foreground: #f5ead9;
+  --muted: #2a1f16;
+  --muted-foreground: #cbb499;
+  --accent: #eab657;
+  --accent-foreground: #171009;
+  --destructive: #e2685a;
+  --destructive-foreground: #fff8f0;
+  --border: #3f2f20;
+  --input: #3f2f20;
+  --ring: #eab657;
+  --gold: #eab657;
+  --caramel: #d1a06a;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
-  h1, h2, h3, .font-display {
+
+  h1,
+  h2,
+  h3,
+  .font-display {
     font-family: var(--font-serif);
   }
+
   ::selection {
     background: var(--accent);
     color: var(--foreground);
@@ -81,12 +111,18 @@
 }
 
 @layer utilities {
-  .text-balance { text-wrap: balance; }
+  .text-balance {
+    text-wrap: balance;
+  }
+
   .gold-gradient {
     background: linear-gradient(120deg, #e6c877 0%, #c9a24b 45%, #b07d43 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .hairline { border-color: color-mix(in oklab, var(--gold) 40%, transparent); }
+
+  .hairline {
+    border-color: color-mix(in oklab, var(--gold) 40%, transparent);
+  }
 }
