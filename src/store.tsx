@@ -53,6 +53,8 @@ type Store = {
   orders: Order[];
   placeOrder: (fulfillment: "Pickup" | "Delivery") => Order;
   points: number;
+  newsletterEmail: string | null;
+  subscribeNewsletter: (email: string) => void;
 };
 
 const Ctx = createContext<Store | null>(null);
@@ -71,11 +73,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>(() => load("rb_cart", []));
   const [favorites, setFavorites] = useState<string[]>(() => load("rb_favs", []));
   const [orders, setOrders] = useState<Order[]>(() => load("rb_orders", []));
+  const [newsletterEmail, setNewsletterEmail] = useState<string | null>(() => load("rb_newsletter", null));
 
   useEffect(() => { localStorage.setItem("rb_user", JSON.stringify(user)); }, [user]);
   useEffect(() => { localStorage.setItem("rb_cart", JSON.stringify(cart)); }, [cart]);
   useEffect(() => { localStorage.setItem("rb_favs", JSON.stringify(favorites)); }, [favorites]);
   useEffect(() => { localStorage.setItem("rb_orders", JSON.stringify(orders)); }, [orders]);
+  useEffect(() => { localStorage.setItem("rb_newsletter", JSON.stringify(newsletterEmail)); }, [newsletterEmail]);
 
   const value = useMemo<Store>(() => {
     const cartCount = cart.reduce((s, i) => s + i.qty, 0);
@@ -132,8 +136,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
         return order;
       },
       points,
+      newsletterEmail,
+      subscribeNewsletter: (email) => setNewsletterEmail(email.trim().toLowerCase()),
     };
-  }, [user, cart, favorites, orders]);
+  }, [user, cart, favorites, orders, newsletterEmail]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
