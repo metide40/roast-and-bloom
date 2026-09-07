@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, Coffee, Crown, Flame, Leaf, MapPin, Medal, PlayCircle,
+  ArrowRight, ChatCircle, Coffee, Crown, Flame, Leaf, MapPin, Medal,
   Quotes, ShieldCheck, Star, Storefront, Truck,
 } from "@phosphor-icons/react";
 import { IMG, PRODUCTS, TESTIMONIALS, formatMoney, type Product } from "@/data";
@@ -43,10 +43,10 @@ export function ProductCard({ p, index = 0 }: { p: Product; index?: number }) {
               <Star size={13} weight="fill" className="text-gold" /> {p.rating}
             </span>
           </div>
-          <h3 className="mt-1.5 font-display text-lg text-espresso">{p.name}</h3>
+          <h3 className="mt-1.5 font-display text-lg text-foreground">{p.name}</h3>
           <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{p.notes.join(" · ")}</p>
           <div className="mt-auto flex items-center justify-between pt-4">
-            <span className="font-display text-xl text-espresso">{formatMoney(p.price)}</span>
+            <span className="font-display text-xl text-foreground">{formatMoney(p.price)}</span>
             <button
               onClick={() => addToCart(p, "M", "Dairy")}
               className="inline-flex items-center gap-1.5 rounded-full bg-espresso px-4 py-2 text-xs font-semibold text-cream transition-transform hover:scale-105 active:scale-95"
@@ -99,11 +99,11 @@ export default function Home() {
               className="mt-9 flex flex-wrap items-center gap-4"
             >
               <GoldButton as="link" to="/menu">Explore the Menu <ArrowRight size={16} /></GoldButton>
-              <Link to="/about" className="group inline-flex items-center gap-3 text-cream">
+              <Link to="/contact" className="group inline-flex items-center gap-3 text-cream">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full border border-cream/30 transition-colors group-hover:border-gold group-hover:text-gold">
-                  <PlayCircle size={22} weight="fill" />
+                  <ChatCircle size={22} weight="fill" />
                 </span>
-                <span className="text-sm font-semibold">Our story</span>
+                <span className="text-sm font-semibold">Get in touch</span>
               </Link>
             </motion.div>
             <div className="mt-12 flex flex-wrap gap-8">
@@ -132,7 +132,7 @@ export default function Home() {
                 <f.icon size={22} weight="duotone" />
               </span>
               <div>
-                <p className="text-sm font-semibold text-espresso">{f.t}</p>
+                <p className="text-sm font-semibold text-foreground">{f.t}</p>
                 <p className="text-xs text-muted-foreground">{f.s}</p>
               </div>
             </Reveal>
@@ -160,7 +160,7 @@ export default function Home() {
             </div>
             <div className="absolute -bottom-6 -right-4 hidden rounded-2xl bg-espresso px-6 py-5 text-cream shadow-xl sm:block">
               <p className="font-display text-3xl text-gold">Since 2016</p>
-              <p className="text-xs text-cream/60">Roasting in Portland</p>
+              <p className="text-xs text-cream/60">Roasting in Addis Ababa</p>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
@@ -179,7 +179,7 @@ export default function Home() {
                     <r.icon size={22} weight="duotone" />
                   </span>
                   <div>
-                    <p className="font-semibold text-espresso">{r.t}</p>
+                    <p className="font-semibold text-foreground">{r.t}</p>
                     <p className="text-sm text-muted-foreground">{r.s}</p>
                   </div>
                 </li>
@@ -200,7 +200,7 @@ export default function Home() {
               onClick={() => setTab(t)}
               className={cn(
                 "rounded-full px-5 py-2.5 text-sm font-semibold transition-all",
-                tab === t ? "bg-espresso text-cream shadow-lg" : "bg-secondary text-espresso hover:bg-secondary/70",
+                tab === t ? "bg-espresso text-cream shadow-lg" : "bg-secondary text-foreground hover:bg-secondary/70",
               )}
             >
               {t}
@@ -208,9 +208,15 @@ export default function Home() {
           ))}
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {popular.filter((p) => p.category === tab).slice(0, 4).map((p, i) => (
-            <ProductCard key={p.id} p={p} index={i} />
-          ))}
+          {tab === "Beans"
+            ? ["ethiopia-solana", "guatemala-coldbrew-beans"].map((id, i) => {
+                const p = PRODUCTS.find((product) => product.id === id);
+                if (!p) return null;
+                return <ProductCard key={p.id} p={p} index={i} />;
+              })
+            : popular.filter((p) => p.category === tab).slice(0, 4).map((p, i) => (
+              <ProductCard key={p.id} p={p} index={i} />
+            ))}
         </div>
       </section>
 
@@ -251,11 +257,11 @@ export default function Home() {
             <Reveal key={t.name} delay={i * 0.1}>
               <figure className="flex h-full flex-col rounded-2xl border border-border bg-card p-7">
                 <Quotes size={34} weight="fill" className="text-gold/50" />
-                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-espresso/90">{t.quote}</blockquote>
+                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-foreground/90">{t.quote}</blockquote>
                 <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary font-display text-caramel">{t.name[0]}</span>
                   <div>
-                    <p className="text-sm font-semibold text-espresso">{t.name}</p>
+                    <p className="text-sm font-semibold text-foreground">{t.name}</p>
                     <p className="text-xs text-muted-foreground">{t.role}</p>
                   </div>
                 </figcaption>
@@ -272,8 +278,8 @@ export default function Home() {
             <div className="flex items-center gap-5">
               <span className="hidden h-14 w-14 items-center justify-center rounded-full bg-secondary text-caramel sm:flex"><MapPin size={26} weight="duotone" /></span>
               <div>
-                <h3 className="font-display text-2xl text-espresso">Come say hello in person.</h3>
-                <p className="mt-1 text-muted-foreground">Three cosy locations across Portland &amp; Seattle.</p>
+                <h3 className="font-display text-2xl text-foreground">Come say hello in person.</h3>
+                <p className="mt-1 text-muted-foreground">Three cosy locations across Addis Ababa </p>
               </div>
             </div>
             <GhostLink to="/locations">Find a café</GhostLink>
