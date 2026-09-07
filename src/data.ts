@@ -123,9 +123,9 @@ export type Location = {
 };
 
 export const LOCATIONS: Location[] = [
-  { name: "Roast & Bloom · Riverside", address: "18 Willow Lane", city: "Portland, OR", hours: "Mon–Sun · 7am – 6pm", phone: "(503) 555-0142", tag: "Flagship" },
-  { name: "Roast & Bloom · Old Town", address: "204 Market Street", city: "Portland, OR", hours: "Mon–Fri · 6:30am – 7pm", phone: "(503) 555-0177", tag: "Roastery" },
-  { name: "Roast & Bloom · Garden District", address: "9 Fern Court", city: "Seattle, WA", hours: "Mon–Sun · 7am – 5pm", phone: "(206) 555-0110", tag: "Café" },
+  { name: "Roast & Bloom · Bole", address: "Bole Road, near Edna Mall", city: "Addis Ababa", hours: "Mon–Sun · 7am – 8pm", phone: "+251 911 630 142", tag: "Flagship" },
+  { name: "Roast & Bloom · Piazza", address: "Churchill Avenue", city: "Addis Ababa", hours: "Mon–Sat · 6:30am – 7pm", phone: "+251 922 552 177", tag: "Roastery" },
+  { name: "Roast & Bloom · Kazanchis", address: "Ethio-China Street", city: "Addis Ababa", hours: "Mon–Sun · 7am – 6pm", phone: "+251 933 470 110", tag: "Café" },
 ];
 
 export const TESTIMONIALS = [
