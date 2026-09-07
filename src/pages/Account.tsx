@@ -23,13 +23,13 @@ function AuthShell({ title, sub, children, footer }: { title: string; sub: strin
           <div className="absolute inset-0 bg-gradient-to-t from-espresso/85 to-transparent" />
           <div className="absolute bottom-8 left-8 right-8 text-cream">
             <Coffee size={30} weight="fill" className="text-gold" />
-            <p className="mt-4 font-display text-2xl leading-snug">"Great coffee is a ritual worth logging in for."</p>
+            <p className="mt-4 font-display text-2xl leading-snug">&ldquo;Great coffee is a ritual worth logging in for.&rdquo;</p>
             <p className="mt-3 text-sm text-cream/70">Members earn points, unlock single origins and skip the queue.</p>
           </div>
         </div>
       </Reveal>
       <div className="mx-auto w-full max-w-md">
-        <h1 className="font-display text-3xl text-espresso sm:text-4xl">{title}</h1>
+        <h1 className="font-display text-3xl text-foreground sm:text-4xl">{title}</h1>
         <p className="mt-2 text-muted-foreground">{sub}</p>
         <div className="mt-8">{children}</div>
         <div className="mt-6 text-sm text-muted-foreground">{footer}</div>
@@ -44,10 +44,10 @@ function TextField({ label, type = "text", icon, value, onChange, placeholder }:
   const t = isPw ? (show ? "text" : "password") : type;
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-medium text-espresso">{label}</span>
+      <span className="mb-1.5 block text-sm font-medium text-foreground">{label}</span>
       <span className="relative block">
         {icon && <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">{icon}</span>}
-        <input type={t} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={cn("w-full rounded-xl border border-border bg-card py-3 text-sm text-espresso placeholder:text-muted-foreground/60 focus:border-caramel focus:outline-none focus:ring-2 focus:ring-caramel/20", isPw ? "pr-11 pl-11" : icon ? "pl-11 pr-4" : "px-4")} />
+        <input type={t} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={cn("w-full rounded-xl border border-border bg-background py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-caramel focus:outline-none focus:ring-2 focus:ring-caramel/20", isPw ? "pr-11 pl-11" : icon ? "pl-11 pr-4" : "px-4")} />
         {isPw && <button type="button" onClick={() => setShow((v) => !v)} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">{show ? <EyeSlash size={18} /> : <Eye size={18} />}</button>}
       </span>
     </label>
@@ -121,7 +121,7 @@ export function ForgotPassword() {
       {sent ? (
         <div className="rounded-2xl border border-border bg-card p-6 text-center">
           <CheckCircle size={44} weight="fill" className="mx-auto text-caramel" />
-          <p className="mt-4 font-display text-xl text-espresso">Check your inbox</p>
+          <p className="mt-4 font-display text-xl text-foreground">Check your inbox</p>
           <p className="mt-2 text-sm text-muted-foreground">If an account exists for {f.email}, a reset link is on its way.</p>
         </div>
       ) : (
@@ -152,7 +152,7 @@ function AccountShell({ active, children }: { active: string; children: ReactNod
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <div className="rounded-2xl border border-border bg-card p-3">
             {ACCOUNT_NAV.map((n) => (
-              <Link key={n.to} to={n.to} className={cn("flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors", active === n.to ? "bg-espresso text-cream" : "text-espresso hover:bg-secondary")}>
+              <Link key={n.to} to={n.to} className={cn("flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors", active === n.to ? "bg-espresso text-cream" : "text-foreground hover:bg-secondary")}>
                 <n.icon size={18} /> {n.label}
               </Link>
             ))}
@@ -178,7 +178,7 @@ export function Profile() {
           <div className="flex items-center gap-4">
             <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-gold to-caramel font-display text-2xl text-espresso">{(user?.name || "G")[0]}</span>
             <div>
-              <h2 className="font-display text-2xl text-espresso">{user?.name || "Guest"}</h2>
+              <h2 className="font-display text-2xl text-foreground">{user?.name || "Guest"}</h2>
               <p className="text-sm text-muted-foreground">{user?.email || "Not signed in"}</p>
             </div>
           </div>
@@ -192,7 +192,7 @@ export function Profile() {
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         {[["Orders", orders.length], ["Lifetime points", useApp().points], ["Status", user ? "Member" : "Guest"]].map(([l, v]) => (
           <div key={String(l)} className="rounded-2xl border border-border bg-card p-5 text-center">
-            <p className="font-display text-2xl text-espresso">{v}</p>
+            <p className="font-display text-2xl text-foreground">{v}</p>
             <p className="text-xs uppercase tracking-wider text-muted-foreground">{l}</p>
           </div>
         ))}
@@ -214,23 +214,23 @@ export function Orders() {
               <div className="rounded-2xl border border-border bg-card p-6">
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
                   <div>
-                    <p className="font-display text-lg text-espresso">{o.id}</p>
+                    <p className="font-display text-lg text-foreground">{o.id}</p>
                     <p className="text-xs text-muted-foreground">{new Date(o.date).toLocaleDateString(undefined, { dateStyle: "medium" })} · {o.fulfillment}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-espresso">{o.status}</span>
-                    <span className="font-display text-lg text-espresso">{formatMoney(o.total)}</span>
+                    <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-foreground">{o.status}</span>
+                    <span className="font-display text-lg text-foreground">{formatMoney(o.total)}</span>
                   </div>
                 </div>
                 <ul className="mt-4 space-y-2">
                   {o.items.map((it, i) => (
                     <li key={i} className="flex items-center justify-between text-sm">
-                      <span className="text-espresso">{it.name} <span className="text-muted-foreground">· {it.size} · {it.milk} ×{it.qty}</span></span>
+                      <span className="text-foreground">{it.name} <span className="text-muted-foreground">· {it.size} · {it.milk} ×{it.qty}</span></span>
                       <span className="font-medium">{formatMoney(it.price * it.qty)}</span>
                     </li>
                   ))}
                 </ul>
-                <div className="mt-4 flex items-center gap-2 rounded-xl bg-secondary/60 px-4 py-2.5 text-sm text-espresso"><Crown size={16} weight="fill" className="text-gold" /> Earned {o.points} points</div>
+                <div className="mt-4 flex items-center gap-2 rounded-xl bg-secondary/60 px-4 py-2.5 text-sm text-foreground"><Crown size={16} weight="fill" className="text-gold" /> Earned {o.points} points</div>
               </div>
             </Reveal>
           ))}
@@ -294,20 +294,20 @@ export function Loyalty() {
           <Reveal key={t.name}>
             <div className={cn("rounded-2xl border bg-card p-6", current.name === t.name ? "border-caramel" : "border-border")}>
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-caramel"><t.icon size={22} weight="duotone" /></span>
-              <p className="mt-4 font-display text-lg text-espresso">{t.name}</p>
+              <p className="mt-4 font-display text-lg text-foreground">{t.name}</p>
               <p className="text-xs text-muted-foreground">{t.min}+ points</p>
-              <p className="mt-3 text-sm text-espresso">{t.perk}</p>
+              <p className="mt-3 text-sm text-foreground">{t.perk}</p>
             </div>
           </Reveal>
         ))}
       </div>
 
       <div className="mt-6 rounded-2xl border border-border bg-card p-6">
-        <h3 className="font-display text-lg text-espresso">Redeem your points</h3>
+        <h3 className="font-display text-lg text-foreground">Redeem your points</h3>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {[["Free any drink", 100], ["Bag of single origin", 250], ["Pastry box for 6", 180]].map(([r, c]) => (
             <div key={String(r)} className="flex items-center justify-between rounded-xl bg-secondary/50 px-4 py-3">
-              <span className="text-sm font-medium text-espresso">{r}</span>
+              <span className="text-sm font-medium text-foreground">{r}</span>
               <button onClick={() => points >= (c as number) ? toast.success(`Redeemed: ${r}`) : toast.error("Not enough points")} className="rounded-full bg-espresso px-4 py-1.5 text-xs font-semibold text-cream">{c} pts</button>
             </div>
           ))}
@@ -322,7 +322,7 @@ function EmptyState({ icon, title, text, cta, to }: { icon: ReactNode; title: st
   return (
     <div className="rounded-2xl border border-border bg-card px-6 py-20 text-center">
       <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-secondary text-caramel">{icon}</span>
-      <h3 className="mt-5 font-display text-xl text-espresso">{title}</h3>
+      <h3 className="mt-5 font-display text-xl text-foreground">{title}</h3>
       <p className="mt-2 text-muted-foreground">{text}</p>
       <div className="mt-6"><GoldButton as="link" to={to}>{cta} <ArrowRight size={16} /></GoldButton></div>
     </div>
@@ -338,7 +338,7 @@ export function About() {
         <Reveal><img src={IMG.interior} alt="Café" className="aspect-[4/3] w-full rounded-3xl object-cover" /></Reveal>
         <Reveal delay={0.1}>
           <SectionHeading eyebrow="Since 2016" title="We started with one question" sub="" />
-          <p className="mt-4 text-lg leading-relaxed text-espresso/80">What if a cup of coffee could slow the whole day down? That curiosity led us to origin, to the roaster, and finally to your hands.</p>
+          <p className="mt-4 text-lg leading-relaxed text-foreground/80">What if a cup of coffee could slow the whole day down? That curiosity led us to origin, to the roaster, and finally to your hands.</p>
           <div className="mt-8 grid grid-cols-3 gap-4">
             {[["30+", "Partner farms"], ["1.2M", "Cups poured"], ["48", "Team members"]].map(([n, l]) => (
               <div key={l} className="rounded-2xl bg-secondary/60 p-5 text-center"><p className="font-display text-2xl text-caramel">{n}</p><p className="text-xs text-muted-foreground">{l}</p></div>
@@ -358,7 +358,7 @@ export function About() {
               <Reveal key={v.t} delay={i * 0.1}>
                 <div className="h-full rounded-2xl border border-border bg-card p-8">
                   <span className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-caramel"><v.icon size={24} weight="duotone" /></span>
-                  <h3 className="mt-5 font-display text-xl text-espresso">{v.t}</h3>
+                  <h3 className="mt-5 font-display text-xl text-foreground">{v.t}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.s}</p>
                 </div>
               </Reveal>
@@ -381,7 +381,7 @@ export function Locations() {
               <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card">
                 <div className="relative h-44"><img src={i === 1 ? IMG.pour : IMG.interior} alt={l.name} className="h-full w-full object-cover" /><span className="absolute left-4 top-4 rounded-full bg-espresso/90 px-3 py-1 text-xs font-semibold text-gold">{l.tag}</span></div>
                 <div className="flex flex-1 flex-col p-6">
-                  <h3 className="font-display text-xl text-espresso">{l.name}</h3>
+                  <h3 className="font-display text-xl text-foreground">{l.name}</h3>
                   <p className="mt-3 flex items-start gap-2 text-sm text-muted-foreground"><MapPin size={18} className="mt-0.5 shrink-0 text-caramel" /> {l.address}, {l.city}</p>
                   <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground"><Coffee size={18} className="shrink-0 text-caramel" /> {l.hours}</p>
                   <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground"><Phone size={18} className="shrink-0 text-caramel" /> {l.phone}</p>
@@ -411,13 +411,13 @@ export function Contact() {
         <Reveal>
           <div className="space-y-5">
             {[
-              { icon: Phone, t: "Call us", s: "(503) 555-0142" },
+              { icon: Phone, t: "Call us", s: "+251 922 552 177" },
               { icon: EnvelopeSimple, t: "Email", s: "hello@roastandbloom.coffee" },
-              { icon: MapPin, t: "Head roastery", s: "204 Market Street, Portland, OR" },
+              { icon: MapPin, t: "Head roastery", s: "Churchill Avenue, Piazza, Addis Ababa" },
             ].map((c) => (
               <div key={c.t} className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-caramel"><c.icon size={22} weight="duotone" /></span>
-                <div><p className="text-sm font-semibold text-espresso">{c.t}</p><p className="text-sm text-muted-foreground">{c.s}</p></div>
+                <div><p className="text-sm font-semibold text-foreground">{c.t}</p><p className="text-sm text-muted-foreground">{c.s}</p></div>
               </div>
             ))}
           </div>
@@ -427,8 +427,8 @@ export function Contact() {
             <TextField label="Name" value={form.name} onChange={(v) => setForm((f) => ({ ...f, name: v }))} placeholder="Your name" />
             <TextField label="Email" type="email" value={form.email} onChange={(v) => setForm((f) => ({ ...f, email: v }))} placeholder="you@email.com" />
             <label className="block">
-              <span className="mb-1.5 block text-sm font-medium text-espresso">Message</span>
-              <textarea value={form.msg} onChange={(e) => setForm((f) => ({ ...f, msg: e.target.value }))} placeholder="How can we help?" rows={5} className="w-full rounded-xl border border-border bg-cream/40 px-4 py-3 text-sm text-espresso focus:border-caramel focus:outline-none focus:ring-2 focus:ring-caramel/20" />
+              <span className="mb-1.5 block text-sm font-medium text-foreground">Message</span>
+              <textarea value={form.msg} onChange={(e) => setForm((f) => ({ ...f, msg: e.target.value }))} placeholder="How can we help?" rows={5} className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground focus:border-caramel focus:outline-none focus:ring-2 focus:ring-caramel/20" />
             </label>
             <button className="w-full rounded-full bg-gradient-to-r from-gold to-caramel px-7 py-3.5 font-semibold text-espresso shadow-lg transition-transform hover:scale-[1.01] active:scale-95">Send message</button>
           </form>
@@ -440,9 +440,9 @@ export function Contact() {
 
 function GhostLink({ to, children }: { to: string; children: ReactNode }) {
   return (
-    <Link to={to} className="group inline-flex items-center gap-2 text-sm font-semibold text-espresso">
+    <Link to={to} className="group inline-flex items-center gap-2 text-sm font-semibold text-foreground">
       {children}
-      <span className="h-px w-6 bg-espresso/40 transition-all duration-300 group-hover:w-10 group-hover:bg-caramel" />
+      <span className="h-px w-6 bg-foreground/40 transition-all duration-300 group-hover:w-10 group-hover:bg-caramel" />
     </Link>
   );
 }
